@@ -86,12 +86,18 @@ $(function () {
 		var $messageBodyDiv = $('<span class="messageBody">').text(data.message);
 
 		var typingClass = data.typing ? "typing" : "";
+		// BetterNY #0: YT Embed
 		let $messageDiv;
 		if(data.message.startsWith('https://www.youtube.com')) {
 			$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv, $('<br/>'),
 $(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.message.replace("https://www.youtube.com/watch?v=", "")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>`));
 		} else {
-			$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv);
+			if(data.message.startsWith('https://youtu.be')) {
+				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv, $('<br/>'),
+				$(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.message.replace("https://youtu.be/", "")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>`));
+			} else {
+				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv);
+			}
 		}
 
 		addMessageElement($messageDiv, options);
