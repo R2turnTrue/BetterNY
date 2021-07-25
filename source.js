@@ -75,7 +75,7 @@ $(function () {
 	};
 
 	const addChatMessage = (data, options) => {
-		if (data.username !== "" && data.message.length <= 100 && data.username.length <= 50 && data.message.startsWith(before)) {
+		if (data.username !== "" && data.message.length <= 100 && data.username.length <= 50) {
 			var $typingMessages = getTypingMessages(data);
 			options = options || {};
 			if ($typingMessages.length !== 0) {
