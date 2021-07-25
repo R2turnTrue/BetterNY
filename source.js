@@ -222,11 +222,12 @@ $(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.me
 		// 		addChatMessage(data);
 		let before = "";
 
-		if (data.username !== "" && data.message.length <= 100 && data.message.startsWith(before)) {
+		// BetterNY #1: username limit
+		if (data.username !== "" && data.message.length <= 100 && data.username.length <= 50 && data.message.startsWith(before)) {
 			before = data.message;
 			addChatMessage(data);
 		} else {
-			log("[ 도배 차단됨 ]");
+			//log("[ 도배 차단됨 ]");
 		}
 	});
 
