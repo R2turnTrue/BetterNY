@@ -1,5 +1,5 @@
 # BetterNY
-## How to install
+## How to install(Chrome)
 1. Open F12
 2. Click "Sources"
 3. Open main.js
