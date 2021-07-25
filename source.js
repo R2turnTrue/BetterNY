@@ -75,32 +75,36 @@ $(function () {
 	};
 
 	const addChatMessage = (data, options) => {
-		var $typingMessages = getTypingMessages(data);
-		options = options || {};
-		if ($typingMessages.length !== 0) {
-			options.fade = false;
-			$typingMessages.remove();
-		}
-
-		var $usernameDiv = $('<span class="username"/>').text(data.username).css("color", getUsernameColor(data.username));
-		var $messageBodyDiv = $('<span class="messageBody">').text(data.message);
-
-		var typingClass = data.typing ? "typing" : "";
-		// BetterNY #0: YT Embed
-		let $messageDiv;
-		if(data.message.startsWith('https://www.youtube.com')) {
-			$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv, $('<br/>'),
-$(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.message.replace("https://www.youtube.com/watch?v=", "")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>`));
-		} else {
-			if(data.message.startsWith('https://youtu.be')) {
-				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv, $('<br/>'),
-				$(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.message.replace("https://youtu.be/", "")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>`));
-			} else {
-				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv);
+		if (data.username !== "" && data.message.length <= 100 && data.username.length <= 50 && data.message.startsWith(before)) {
+			var $typingMessages = getTypingMessages(data);
+			options = options || {};
+			if ($typingMessages.length !== 0) {
+				options.fade = false;
+				$typingMessages.remove();
 			}
-		}
 
-		addMessageElement($messageDiv, options);
+			var $usernameDiv = $('<span class="username"/>').text(data.username).css("color", getUsernameColor(data.username));
+			var $messageBodyDiv = $('<span class="messageBody">').text(data.message);
+
+			var typingClass = data.typing ? "typing" : "";
+			// BetterNY #0: YT Embed
+			let $messageDiv;
+			if(data.message.startsWith('https://www.youtube.com')) {
+				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv, $('<br/>'),
+	$(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.message.replace("https://www.youtube.com/watch?v=", "")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>`));
+			} else {
+				if(data.message.startsWith('https://youtu.be')) {
+					$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv, $('<br/>'),
+					$(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.message.replace("https://youtu.be/", "")}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>`));
+				} else {
+					$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv);
+				}
+			}
+
+			addMessageElement($messageDiv, options);
+		} else {
+			//log("[ 도배 차단됨 ]");
+		}
 	};
 
 	const addChatTyping = data => {
