@@ -1,11 +1,17 @@
 # BetterNY
+## Features
+- Many site embed support
+- Minimize user's **loooong** username
+- Color text(WIP)
+- Markdowns(WIP)
+- and more!
 ## How to install(Chrome)
 1. Open F12
 2. Click "Sources"
 3. Open main.js
 4. Copy & Paste source.js to main.js
 5. enjoy
-## How to install(feature)
+## How to install(feature) not working now
 1. Open console
 2. Enter below command\
 
