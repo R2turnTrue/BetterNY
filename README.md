@@ -21,7 +21,7 @@ let head=document.getElementsByTagName("head")[0],script=document.createElement(
 ```
 If not works\
 ```
-let head = document.getElementsByTagName('head')[0];
+let head = document.getElementsByTagName('body')[0];
 let script = document.createElement('script');
 script.type = 'text/javascript';
 script.onload = function() {
