@@ -6,7 +6,7 @@
 - Live theme change
 - Markdowns(WIP)
 - and more!
-## How to install(feature) not working now
+## How to install(feature) **ALPHA**
 1. Open console
 2. Enter below command
 ```
