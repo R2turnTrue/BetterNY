@@ -3,6 +3,7 @@
 - Many site embed support
 - Minimize user's **loooong** username
 - Color text(WIP)
+- Live theme change
 - Markdowns(WIP)
 - and more!
 ## How to install(Chrome)
@@ -26,7 +27,7 @@ script.type = 'text/javascript';
 script.onload = function() {
     initBetterNy();
 }
-script.src = 'https://raw.githubusercontent.com/NamuTree0345/BetterNY/main/new.main.js';
+script.src = 'https://gitcdn.xyz/repo/NamuTree0345/BetterNY/main/new.main.js';
 head.appendChild(script);
 ```
 3. Enjoy
