@@ -27,7 +27,7 @@ script.type = 'text/javascript';
 script.onload = function() {
     initBetterNy();
 }
-script.src = 'https://gitcdn.xyz/cdn/NamuTree0345/BetterNY/901038c26cb89440f7820739adc2aeef56b71beb/new.main.js';
+script.src = 'https://gitcdn.xyz/cdn/NamuTree0345/BetterNY/0d2bc24edd7721fc78e63a41a5ab36059e1697dc/new.main.js';
 head.appendChild(script);
 ```
 3. Enjoy
