@@ -82,7 +82,7 @@ function processCommand(username, msg) {
   }
 }
 
-function init() {
+function initBetterNy() {
   
   const socket = io()
   
@@ -93,7 +93,8 @@ function init() {
   sendMessage = function() {
     var message = $inputMessage.val();
     if(message.startsWith('/')) {
-      processCommand(username, message)
+      processCommand(username, message);
+      return
     }
     oldSendMessage.apply(oldSendMessage, arguments);
   }
