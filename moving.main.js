@@ -8,6 +8,8 @@ function $(name) {
 }
 
 	var $window = $(window);
+
+	var username = ''
 	var $usernameInput = $(".usernameInput");
 	var $messages = $(".messages");
 	var $inputMessage = $(".inputMessage");
@@ -93,12 +95,11 @@ function fadeOutEffect(fadeTarget) {
 
 	const log = (message, options) => {
 		var $el = document.createElement("li")
-    $el.classList.add("log")
-    $el.innerHTML = message
+    		$el.classList.add("log")
+    		$el.innerHTML = message
 		addMessageElement($el, options);
 	};
 
-// work here
 	const addChatMessage = (data, options) => {
 		if (data.username !== "" && data.message.length <= 250 && data.username.length <= 50) {
 			var $typingMessages = getTypingMessages(data);
@@ -108,17 +109,54 @@ function fadeOutEffect(fadeTarget) {
 				$typingMessages.remove();
 			}
 
+			/*
 			var $usernameDiv = $('<span class="username"/>').text(data.username).css("color", getUsernameColor(data.username));
 			var $messageBodyDiv = $('<span class="messageBody">').text(data.message);
 			var $messageBodyDiv_del = $('<del><span class="messageBody">').text(data.message.replaceAll("~~", ""));
 			var $messageBodyDiv_ita = $('<i><span class="messageBody">').text(data.message.replaceAll("*", ""));
 			var $messageBodyDiv_bol = $('<B><span class="messageBody">').text(data.message.replaceAll("**", ""));
 			var $messageBodyDiv_und = $('<U><span class="messageBody">').text(data.message.replaceAll("__", ""));
+			*/
+			var $usernameDiv = document.createElement('span')
+			$usernameDiv.classList.add('username')
+			$usernameDiv.style.color = getUsernameColor(data.username)
+			$usernameDiv.innerHTML = data.username
+			var $messageBodyDiv = document.createElement('span')
+			$messageBodyDiv.classList.add('messageBody')
+			$messageBodyDiv.innerHTML = data.message
+			var $messageBodyDiv_del = document.createElement('del').createElement('span')
+			$messageBodyDiv.classList.add('messageBody')
+			$messageBodyDiv.innerHTML = data.message.replaceAll("~~", "")
+			var $messageBodyDiv_ita = document.createElement('i').createElement('span')
+			$messageBodyDiv.classList.add('messageBody')
+			$messageBodyDiv.innerHTML = data.message.replaceAll("*", "")
+			var $messageBodyDiv_bol = document.createElement('B').createElement('span')
+			$messageBodyDiv.classList.add('messageBody')
+			$messageBodyDiv.innerHTML = data.message.replaceAll("**", "")
+			var $messageBodyDiv_und = document.createElement('U').createElement('span')
+			$messageBodyDiv.classList.add('messageBody')
+			$messageBodyDiv.innerHTML = data.message.replaceAll("__", "")
 
 			var typingClass = data.typing ? "typing" : "";
 			// BetterNY #0: YT Embed
 			let $messageDiv;
 			if (data.message.startsWith("https://www.youtube.com")) {
+				$messageDiv = document.createElement("li")
+				$messageDiv.classList.add('message')
+				$messageDiv.classList.add(typingClass)
+				username = data.username
+				$messageDiv.appendChild($usernameDiv)
+				$messageDiv.appendChild($messageBodyDiv)
+				$messageDiv.appendChild(document.createElement('br'))
+				var $iframe = document.createElement('iframe')
+				$iframe.setAttribute('width', '560')
+				$iframe.setAttribute('height', '315')
+				$iframe.setAttribute('src', `https://www.youtube.com/embed/${data.message.replace("https://www.youtube.com/watch?v=")}`)
+				$iframe.setAttribute('title', 'YT Video Player')
+				$iframe.setAttribute('frameborder', '0')
+				$iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
+				$iframe.setAttribute('allowfullscreen', '')
+				/*
 				$messageDiv = $('<li class="message"/>')
 					.data("username", data.username)
 					.addClass(typingClass)
@@ -133,39 +171,71 @@ function fadeOutEffect(fadeTarget) {
 							)}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>`
 						)
 					);
+				*/
 			} else if (data.message.startsWith("https://youtu.be")) {
-				$messageDiv = $('<li class="message"/>')
-					.data("username", data.username)
-					.addClass(typingClass)
-					.append(
-						$usernameDiv,
-						$messageBodyDiv,
-						$("<br/>"),
-						$(
-							`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.message.replace(
-								"https://youtu.be/",
-								""
-							)}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""/>`
-						)
-					);
+				$messageDiv = document.createElement("li")
+				$messageDiv.classList.add('message')
+				$messageDiv.classList.add(typingClass)
+				username = data.username
+				$messageDiv.appendChild($usernameDiv)
+				$messageDiv.appendChild($messageBodyDiv)
+				$messageDiv.appendChild(document.createElement('br'))
+				var $iframe = document.createElement('iframe')
+				$iframe.setAttribute('width', '560')
+				$iframe.setAttribute('height', '315')
+				$iframe.setAttribute('src', `https://www.youtube.com/embed/${data.message.replace("https://youtu.be/")}`)
+				$iframe.setAttribute('title', 'YT Video Player')
+				$iframe.setAttribute('frameborder', '0')
+				$iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture')
+				$iframe.setAttribute('allowfullscreen', '')
 			}
 			// 취소선
 			else if (data.message.startsWith("~~") && data.message.endsWith("~~")) {
-				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv_del);
+				$messageDiv = document.createElement('li')
+				$messageDiv.classList.add('message')
+				$messageDiv.classList.add(typingClass)
+				$messageDiv.appendChild($usernameDiv)
+				$messageDiv.appendChild($messageBodyDiv_del)
+				username = data.username
+				//$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv_del);
 			}
 			// 굵게
 			else if (data.message.startsWith("**") && data.message.endsWith("**")) {
-				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv_bol);
+				$messageDiv = document.createElement('li')
+				$messageDiv.classList.add('message')
+				$messageDiv.classList.add(typingClass)
+				$messageDiv.appendChild($usernameDiv)
+				$messageDiv.appendChild($messageBodyDiv_bol)
+				username = data.username
+				//$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv_bol);
 			}
 			// 기울림꼴
 			else if (data.message.startsWith("*") && data.message.endsWith("*")) {
-				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv_ita);
+				$messageDiv = document.createElement('li')
+				$messageDiv.classList.add('message')
+				$messageDiv.classList.add(typingClass)
+				$messageDiv.appendChild($usernameDiv)
+				$messageDiv.appendChild($messageBodyDiv_ita)
+				username = data.username
+				//$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv_ita);
 			}
 			// 밑줄
 			else if (data.message.startsWith("__") && data.message.endsWith("__")) {
-				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv_und);
+				$messageDiv = document.createElement('li')
+				$messageDiv.classList.add('message')
+				$messageDiv.classList.add(typingClass)
+				$messageDiv.appendChild($usernameDiv)
+				$messageDiv.appendChild($messageBodyDiv_und)
+				username = data.username
+				//$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv_und);
 			} else {
-				$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv);
+				$messageDiv = document.createElement('li')
+				$messageDiv.classList.add('message')
+				$messageDiv.classList.add(typingClass)
+				$messageDiv.appendChild($usernameDiv)
+				$messageDiv.appendChild($messageBodyDiv)
+				username = data.username
+				//$messageDiv = $('<li class="message"/>').data("username", data.username).addClass(typingClass).append($usernameDiv, $messageBodyDiv);
 			}
 
 			addMessageElement($messageDiv, options);
@@ -181,10 +251,40 @@ function fadeOutEffect(fadeTarget) {
 	};
 
 	const removeChatTyping = data => {
+		fadeOutEffect(getTypingMessages(data))
+		setTimeout(() => {
+			getTypingMessages(data).remove()
+		}, 1500)
+		/*
 		getTypingMessages(data).fadeOut(function () {
 			$(this).remove();
 		});
+		*/
 	};
+
+function fade(self, type, ms) {
+  var isIn = type === 'in',
+    opacity = isIn ? 0 : 1,
+    interval = 50,
+    duration = ms,
+    gap = interval / duration,
+    self = this;
+
+  if(isIn) {
+    self.style.display = 'inline';
+    self.style.opacity = opacity;
+  }
+
+  function func() {
+    opacity = isIn ? opacity + gap : opacity - gap;
+    self.el.style.opacity = opacity;
+
+    if(opacity <= 0) self.style.display = 'none'
+    if(opacity <= 0 || opacity >= 1) window.clearInterval(fading);
+  }
+
+  var fading = window.setInterval(func, interval);
+}
 
 	const addMessageElement = (el, options) => {
 		var $el = $(el);
@@ -200,7 +300,8 @@ function fadeOutEffect(fadeTarget) {
 		}
 
 		if (options.fade) {
-			$el.hide().fadeIn(FADE_TIME);
+			
+			//$el.hide().fadeIn(FADE_TIME);
 		}
 		if (options.prepend) {
 			$messages.prepend($el);
