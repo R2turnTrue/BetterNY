@@ -57,6 +57,10 @@ function processCommand(username, msg) {
 }
 
 function initBetterNy() {
+  
+  console.log('  ____       _   _            _   ___     __\n|  _ \     | | | |          | \ | \ \   / /\n| |_) | ___| |_| |_ ___ _ __|  \| |\ \_/ / \n|  _ < / _ \ __| __/ _ \ '__| . ` | \   /  \n| |_) |  __/ |_| ||  __/ |  | |\  |  | |   \n|____/ \___|\__|\__\___|_|  |_| \_|  |_|   \n')
+  console.log('injecting into script...')
+  
   const socket = io();
   /**
   @inject HEAD Command Feature
@@ -74,4 +78,6 @@ function initBetterNy() {
 
     oldSendMessage.apply(oldSendMessage, arguments);
   };
+  
+    console.log('inject success')
 }
