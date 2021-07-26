@@ -51,10 +51,7 @@ function processCommand(username, msg) {
   console.log('Processing command: ' + msg);
 
   if (msg.startsWith('/help')) {
-    addChatMessageClient({
-      username: 'BetterNY Helper',
-      message: '사용 가능 명령어: /테마 <Basic/Default/Dark/Dracula/Light/Ocean>'
-    });
+    addChatMessageClient({username: 'BetterNY Helper',message: '사용 가능 명령어: /테마 <Basic/Default/Dark/Dracula/Light/Ocean>'});
     return;
   }
 }
